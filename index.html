@@ -384,6 +384,34 @@
         </div>
       </div>
 
+      <div class="phase-card">
+        <div class="img-wrap" onclick="openLightbox(3)">
+          <img src="images/grafana-dashboard.png" alt="Grafana Dashboard" loading="lazy">
+        </div>
+        <div class="info">
+          <h2>Metrics Dashboard</h2>
+          <p>Real-time monitoring via Grafana, showing CPU usage, memory consumption, and agent replica counts.</p>
+          <span class="badge badge-red">Grafana</span>
+          <span class="badge badge-amber">Metrics</span>
+          <br>
+          <a class="link" href="phase-3-advanced/README.md">Monitoring Docs &rarr;</a>
+        </div>
+      </div>
+
+      <div class="phase-card">
+        <div class="img-wrap" onclick="openLightbox(4)">
+          <img src="images/rabbitmq-dashboard.png" alt="RabbitMQ Management UI" loading="lazy">
+        </div>
+        <div class="info">
+          <h2>Message Broker UI</h2>
+          <p>The RabbitMQ Management interface for inspecting task queues, message rates, and agent connections.</p>
+          <span class="badge badge-purple">RabbitMQ</span>
+          <span class="badge badge-cyan">Queues</span>
+          <br>
+          <a class="link" href="phase-1-basic/TESTING.md">Testing Guide &rarr;</a>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -405,7 +433,9 @@
     const slides = [
       { src: 'images/phase-1-arch.svg', title: 'Phase 1: Basic — MCP Server + Single Agent' },
       { src: 'images/phase-2-arch.svg', title: 'Phase 2: Medium — Frontend + Dual Agents' },
-      { src: 'images/phase-3-arch.svg', title: 'Phase 3: Advanced — Monitoring + Autoscaling' }
+      { src: 'images/phase-3-arch.svg', title: 'Phase 3: Advanced — Monitoring + Autoscaling' },
+      { src: 'images/grafana-dashboard.png', title: 'Grafana Metrics Dashboard' },
+      { src: 'images/rabbitmq-dashboard.png', title: 'RabbitMQ Management Interface' }
     ];
 
     let current = 0;
