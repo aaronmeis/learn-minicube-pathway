@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(minikube status:*)",
+      "Bash(where.exe:*)",
+      "Bash(winget install:*)",
+      "Bash(export PATH=\"$PATH:/c/Program Files/Kubernetes/Minikube\")",
+      "Bash(minikube version:*)",
+      "Bash(minikube start:*)",
+      "Bash(kubectl wait:*)",
+      "Bash(kubectl apply:*)",
+      "Bash(kubectl get:*)",
+      "Bash(kubectl logs:*)",
+      "Bash(kubectl delete:*)",
+      "Bash(minikube stop:*)",
+      "Bash(kubectl config get-contexts:*)",
+      "Bash(docker version:*)",
+      "Bash(docker info:*)",
+      "Bash(echo:*)",
+      "Bash(kubectl cluster-info:*)",
+      "Bash(kubectl config use-context:*)",
+      "Bash(docker build:*)",
+      "Bash(docker images:*)",
+      "Bash(docker image:*)",
+      "Bash(docker.exe image:*)"
+    ]
+  }
+}

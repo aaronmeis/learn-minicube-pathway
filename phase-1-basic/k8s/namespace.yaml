@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: task-system
+  labels:
+    app: task-distribution
+    phase: basic
