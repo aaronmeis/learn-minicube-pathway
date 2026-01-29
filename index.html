@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Task Distribution System — Architecture Overview</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+  header { text-align: center; margin-bottom: 3rem; }
+  header h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #818cf8, #06b6d4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+  }
+  header p { color: #94a3b8; font-size: 1.05rem; max-width: 600px; margin: 0 auto; }
+
+  .phase-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .phase-card {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .phase-card:hover {
+    transform: translateY(-4px);
+    border-color: #6366f1;
+  }
+
+  .phase-card .img-wrap {
+    cursor: pointer;
+    background: #0f172a;
+    padding: 1rem;
+    border-bottom: 1px solid #334155;
+    position: relative;
+    overflow: hidden;
+  }
+  .phase-card .img-wrap::after {
+    content: 'Click to enlarge';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.4rem;
+    text-align: center;
+    font-size: 0.7rem;
+    color: #94a3b8;
+    background: linear-gradient(transparent, rgba(15,23,42,0.9));
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .phase-card .img-wrap:hover::after { opacity: 1; }
+
+  .phase-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 4px;
+  }
+
+  .phase-card .info { padding: 1.25rem; }
+  .phase-card .info h2 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+  }
+  .phase-card .info p {
+    font-size: 0.88rem;
+    color: #94a3b8;
+    margin-bottom: 0.75rem;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    margin-right: 0.3rem;
+    margin-bottom: 0.3rem;
+  }
+  .badge-purple { background: #4338ca22; color: #a78bfa; border: 1px solid #4338ca44; }
+  .badge-cyan   { background: #0e749022; color: #67e8f9; border: 1px solid #0e749044; }
+  .badge-green  { background: #05966922; color: #6ee7b7; border: 1px solid #05966944; }
+  .badge-amber  { background: #d9770622; color: #fcd34d; border: 1px solid #d9770644; }
+  .badge-red    { background: #dc262622; color: #fca5a5; border: 1px solid #dc262644; }
+
+  .phase-card .link {
+    display: inline-block;
+    margin-top: 0.5rem;
+    color: #818cf8;
+    font-size: 0.85rem;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .phase-card .link:hover { color: #a5b4fc; text-decoration: underline; }
+
+  /* Lightbox */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    cursor: zoom-out;
+  }
+  .lightbox.active { display: flex; }
+
+  .lightbox img {
+    max-width: 95%;
+    max-height: 90vh;
+    border-radius: 8px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+    cursor: default;
+  }
+
+  .lightbox .lb-title {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #94a3b8;
+    font-size: 0.9rem;
+    font-weight: 600;
+    background: rgba(15, 23, 42, 0.8);
+    padding: 0.4rem 1.2rem;
+    border-radius: 999px;
+  }
+
+  .lightbox .lb-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid #475569;
+    color: #e2e8f0;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+  }
+  .lightbox .lb-close:hover { background: rgba(51, 65, 85, 0.9); }
+
+  .lightbox .lb-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid #475569;
+    color: #e2e8f0;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+  }
+  .lightbox .lb-nav:hover { background: rgba(51, 65, 85, 0.9); }
+  .lightbox .lb-prev { left: 1.5rem; }
+  .lightbox .lb-next { right: 1.5rem; }
+
+  footer {
+    text-align: center;
+    padding: 2rem 0;
+    color: #475569;
+    font-size: 0.8rem;
+    border-top: 1px solid #1e293b;
+  }
+  footer a { color: #6366f1; text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  @media (max-width: 640px) {
+    header h1 { font-size: 1.5rem; }
+    .phase-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>Task Distribution System</h1>
+    <p>A distributed task processing system with agents and monitoring, running on Docker Desktop Kubernetes.</p>
+  </header>
+
+  <div class="phase-grid">
+
+    <div class="phase-card">
+      <div class="img-wrap" onclick="openLightbox(0)">
+        <img src="images/phase-1-arch.svg" alt="Phase 1 Architecture Diagram" loading="lazy">
+      </div>
+      <div class="info">
+        <h2>Phase 1: Basic</h2>
+        <p>MCP Server (RabbitMQ) + single Python agent worker. Submit tasks via CLI, get results inline.</p>
+        <span class="badge badge-purple">RabbitMQ</span>
+        <span class="badge badge-cyan">Python Agent</span>
+        <span class="badge badge-green">CLI</span>
+        <br>
+        <a class="link" href="phase-1-basic/README.md">Setup instructions &rarr;</a>
+      </div>
+    </div>
+
+    <div class="phase-card">
+      <div class="img-wrap" onclick="openLightbox(1)">
+        <img src="images/phase-2-arch.svg" alt="Phase 2 Architecture Diagram" loading="lazy">
+      </div>
+      <div class="info">
+        <h2>Phase 2: Medium</h2>
+        <p>Add a React frontend, Flask API gateway, and scale to 2 competing agent replicas.</p>
+        <span class="badge badge-green">React</span>
+        <span class="badge badge-amber">Flask API</span>
+        <span class="badge badge-cyan">2x Agents</span>
+        <br>
+        <a class="link" href="phase-2-medium/ARCHITECTURE.md">Architecture &rarr;</a>
+      </div>
+    </div>
+
+    <div class="phase-card">
+      <div class="img-wrap" onclick="openLightbox(2)">
+        <img src="images/phase-3-arch.svg" alt="Phase 3 Architecture Diagram" loading="lazy">
+      </div>
+      <div class="info">
+        <h2>Phase 3: Advanced</h2>
+        <p>Prometheus + Grafana dashboards, HPA autoscaling, and optional KEDA queue-based scaling.</p>
+        <span class="badge badge-red">Prometheus</span>
+        <span class="badge badge-amber">Grafana</span>
+        <span class="badge badge-green">HPA</span>
+        <span class="badge badge-purple">KEDA</span>
+        <br>
+        <a class="link" href="phase-3-advanced/ARCHITECTURE.md">Architecture &rarr;</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" onclick="closeLightbox()" aria-label="Close">&times;</button>
+  <button class="lb-nav lb-prev" onclick="navLightbox(-1)" aria-label="Previous">&#8249;</button>
+  <button class="lb-nav lb-next" onclick="navLightbox(1)" aria-label="Next">&#8250;</button>
+  <img id="lb-img" src="" alt="">
+  <div class="lb-title" id="lb-title"></div>
+</div>
+
+<footer>
+  <p>Task Distribution System &mdash; Built with Docker Desktop Kubernetes</p>
+  <p><a href="README.md">Project README</a> &middot; <a href="phase-1-basic/TESTING.md">Testing Guide</a></p>
+</footer>
+
+<script>
+  const slides = [
+    { src: 'images/phase-1-arch.svg', title: 'Phase 1: Basic — MCP Server + Single Agent' },
+    { src: 'images/phase-2-arch.svg', title: 'Phase 2: Medium — Frontend + Dual Agents' },
+    { src: 'images/phase-3-arch.svg', title: 'Phase 3: Advanced — Monitoring + Autoscaling' }
+  ];
+
+  let current = 0;
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lb-img');
+  const lbTitle = document.getElementById('lb-title');
+
+  function openLightbox(index) {
+    current = index;
+    lbImg.src = slides[current].src;
+    lbTitle.textContent = slides[current].title;
+    lb.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lb.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function navLightbox(dir) {
+    current = (current + dir + slides.length) % slides.length;
+    lbImg.src = slides[current].src;
+    lbTitle.textContent = slides[current].title;
+  }
+
+  // Close on backdrop click
+  lb.addEventListener('click', function(e) {
+    if (e.target === lb) closeLightbox();
+  });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', function(e) {
+    if (!lb.classList.contains('active')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') navLightbox(-1);
+    if (e.key === 'ArrowRight') navLightbox(1);
+  });
+</script>
+
+</body>
+</html>

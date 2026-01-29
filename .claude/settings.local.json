@@ -22,7 +22,8 @@
       "Bash(docker build:*)",
       "Bash(docker images:*)",
       "Bash(docker image:*)",
-      "Bash(docker.exe image:*)"
+      "Bash(docker.exe image:*)",
+      "Bash(dir:*)"
     ]
   }
 }

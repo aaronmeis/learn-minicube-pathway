@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 620" font-family="Segoe UI, system-ui, sans-serif">
+  <defs>
+    <filter id="shadow3"><feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.15"/></filter>
+    <linearGradient id="g3a" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#4f46e5"/></linearGradient>
+    <linearGradient id="g3b" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#06b6d4"/><stop offset="100%" stop-color="#0891b2"/></linearGradient>
+    <linearGradient id="g3c" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ef4444"/><stop offset="100%" stop-color="#dc2626"/></linearGradient>
+    <linearGradient id="g3d" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f97316"/><stop offset="100%" stop-color="#ea580c"/></linearGradient>
+    <linearGradient id="g3e" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#10b981"/><stop offset="100%" stop-color="#059669"/></linearGradient>
+    <linearGradient id="g3f" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#7c3aed"/></linearGradient>
+    <marker id="a3b" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#38bdf8"/></marker>
+    <marker id="a3g" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#94a3b8"/></marker>
+  </defs>
+  <rect width="800" height="620" rx="12" fill="#0f172a"/>
+  <text x="400" y="38" text-anchor="middle" fill="#e2e8f0" font-size="20" font-weight="700">Phase 3: Advanced — Monitoring + Autoscaling</text>
+  <!-- Cluster -->
+  <rect x="30" y="55" width="740" height="430" rx="10" fill="none" stroke="#334155" stroke-width="2" stroke-dasharray="8,4"/>
+  <text x="50" y="77" fill="#64748b" font-size="11" font-weight="600">DOCKER DESKTOP KUBERNETES</text>
+  <!-- App layer -->
+  <rect x="50" y="90" width="130" height="70" rx="6" fill="url(#g3e)" filter="url(#shadow3)"/>
+  <text x="115" y="118" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">Frontend</text>
+  <text x="115" y="135" text-anchor="middle" fill="#d1fae5" font-size="9">React</text>
+  <rect x="200" y="90" width="130" height="70" rx="6" fill="url(#g3d)" filter="url(#shadow3)"/>
+  <text x="265" y="118" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">Flask API</text>
+  <text x="265" y="135" text-anchor="middle" fill="#fef3c7" font-size="9">Gateway</text>
+  <rect x="350" y="90" width="130" height="70" rx="6" fill="url(#g3a)" filter="url(#shadow3)"/>
+  <text x="415" y="118" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">RabbitMQ</text>
+  <text x="415" y="135" text-anchor="middle" fill="#c7d2fe" font-size="9">MCP Server</text>
+  <rect x="500" y="90" width="130" height="70" rx="6" fill="url(#g3b)" filter="url(#shadow3)"/>
+  <text x="565" y="118" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">Agents</text>
+  <text x="565" y="135" text-anchor="middle" fill="#cffafe" font-size="9">2-4 replicas</text>
+  <rect x="650" y="90" width="110" height="70" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+  <text x="705" y="118" text-anchor="middle" fill="#94a3b8" font-size="11" font-weight="600">Metrics</text>
+  <text x="705" y="135" text-anchor="middle" fill="#64748b" font-size="9">Server</text>
+  <!-- Arrows to Prometheus -->
+  <line x1="415" y1="160" x2="350" y2="210" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,2" marker-end="url(#a3g)"/>
+  <line x1="565" y1="160" x2="450" y2="210" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,2" marker-end="url(#a3g)"/>
+  <line x1="705" y1="160" x2="550" y2="210" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,2" marker-end="url(#a3g)"/>
+  <text x="580" y="190" fill="#475569" font-size="9">metrics</text>
+  <!-- Prometheus -->
+  <rect x="200" y="200" width="400" height="70" rx="8" fill="url(#g3c)" filter="url(#shadow3)"/>
+  <text x="400" y="228" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">Prometheus</text>
+  <text x="400" y="248" text-anchor="middle" fill="#fecaca" font-size="10">Scrapes all pod metrics — time-series storage</text>
+  <!-- Grafana -->
+  <rect x="200" y="300" width="400" height="80" rx="8" fill="url(#g3d)" filter="url(#shadow3)"/>
+  <text x="400" y="328" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">Grafana</text>
+  <text x="280" y="350" fill="#fef3c7" font-size="9">K8s Pods</text>
+  <text x="360" y="350" fill="#fef3c7" font-size="9">RabbitMQ</text>
+  <text x="440" y="350" fill="#fef3c7" font-size="9">Throughput</text>
+  <text x="530" y="350" fill="#fef3c7" font-size="9">Autoscaler</text>
+  <text x="400" y="370" text-anchor="middle" fill="#fdba74" font-size="9">Dashboards — port-forward :3000</text>
+  <!-- Arrow Prometheus -> Grafana -->
+  <line x1="400" y1="270" x2="400" y2="300" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#a3g)"/>
+  <!-- HPA / KEDA -->
+  <rect x="80" y="410" width="180" height="55" rx="6" fill="#1e293b" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="170" y="433" text-anchor="middle" fill="#4ade80" font-size="11" font-weight="600">HPA</text>
+  <text x="170" y="450" text-anchor="middle" fill="#64748b" font-size="9">CPU 50% — min:2 max:4</text>
+  <rect x="300" y="410" width="180" height="55" rx="6" fill="#1e293b" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="390" y="433" text-anchor="middle" fill="#c4b5fd" font-size="11" font-weight="600">KEDA (optional)</text>
+  <text x="390" y="450" text-anchor="middle" fill="#64748b" font-size="9">RabbitMQ queue-length scaler</text>
+  <!-- Arrow Prom -> HPA -->
+  <line x1="300" y1="270" x2="170" y2="410" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,2" marker-end="url(#a3g)"/>
+  <line x1="500" y1="270" x2="390" y2="410" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,2" marker-end="url(#a3g)"/>
+  <!-- Developer -->
+  <rect x="500" y="500" width="260" height="65" rx="8" fill="url(#g3f)" filter="url(#shadow3)"/>
+  <text x="630" y="525" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Developer</text>
+  <text x="630" y="543" text-anchor="middle" fill="#ddd6fe" font-size="10">Grafana Dashboards — :3000</text>
+  <text x="630" y="557" text-anchor="middle" fill="#c4b5fd" font-size="9">kubectl get hpa — watch scaling</text>
+  <line x1="630" y1="485" x2="630" y2="500" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#a3g)"/>
+  <!-- Legend -->
+  <rect x="50" y="500" width="310" height="65" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+  <text x="205" y="523" text-anchor="middle" fill="#94a3b8" font-size="11" font-weight="600">Observability Stack</text>
+  <text x="70" y="543" fill="#cbd5e1" font-size="9">Metrics Server + Prometheus -> Grafana</text>
+  <text x="70" y="557" fill="#cbd5e1" font-size="9">HPA / KEDA autoscale agents on load</text>
+</svg>
