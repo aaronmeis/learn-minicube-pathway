@@ -65,3 +65,17 @@ Open **http://localhost:15672** (admin / secret).
    ```powershell
    kubectl get pods -n task-system -l app=agent --watch
    ```
+
+## Tear Down
+
+To remove all resources created in Phase 1, 2, and 3, run:
+
+```powershell
+# Delete the application namespace
+kubectl delete namespace task-system
+
+# Delete the monitoring namespace
+kubectl delete namespace monitoring
+```
+
+This will stop all containers and remove the deployments, services, secrets, and HPAs.
