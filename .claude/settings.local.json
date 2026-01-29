@@ -23,7 +23,8 @@
       "Bash(docker images:*)",
       "Bash(docker image:*)",
       "Bash(docker.exe image:*)",
-      "Bash(dir:*)"
+      "Bash(dir:*)",
+      "Bash(powershell:*)"
     ]
   }
 }
